@@ -12,7 +12,10 @@ CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS=y
 CONFIG_CPU_FREQ_GOV_ONDEMAND=y
 CONFIG_WIRELESS_CHARGER_HIGH_VOLTAGE=y
 CONFIG_HOTPLUG_THREAD_STOP=y
+<<<<<<< HEAD:arch/arm64/configs/exynos7420-zeroltespr_defconfig
 >>>>>>> d2234da... enable HOTPLUG_THREAD_STOP:arch/arm64/configs/googymax_exynos720-zeroflte_defconfig
+=======
+>>>>>>> 3b85f2b... enable HOTPLUG_THREAD_STOP:arch/arm64/configs/googymax_exynos720-zeroflte_defconfig
 #
 ###################
 #
