@@ -7,6 +7,12 @@
 ### GoogyMax-S6 ###
 #
 CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS=y
+<<<<<<< HEAD:arch/arm64/configs/exynos7420-zeroltespr_defconfig
+=======
+CONFIG_CPU_FREQ_GOV_ONDEMAND=y
+CONFIG_WIRELESS_CHARGER_HIGH_VOLTAGE=y
+CONFIG_HOTPLUG_THREAD_STOP=y
+>>>>>>> d2234da... enable HOTPLUG_THREAD_STOP:arch/arm64/configs/googymax_exynos720-zeroflte_defconfig
 #
 ###################
 #
@@ -47,10 +53,14 @@ CONFIG_BUILDTIME_EXTABLE_SORT=y
 CONFIG_INIT_ENV_ARG_LIMIT=32
 CONFIG_CROSS_COMPILE=""
 <<<<<<< HEAD:arch/arm64/configs/exynos7420-zeroltespr_defconfig
+<<<<<<< HEAD:arch/arm64/configs/exynos7420-zeroltespr_defconfig
 CONFIG_LOCALVERSION=""
 CONFIG_LOCALVERSION_AUTO=y
 =======
 CONFIG_LOCALVERSION="-Googy-Max-S6-vTW_1.0_85"
+=======
+CONFIG_LOCALVERSION="-Googy-Max-S6-vTW_1.2"
+>>>>>>> d2234da... enable HOTPLUG_THREAD_STOP:arch/arm64/configs/googymax_exynos720-zeroflte_defconfig
 # CONFIG_LOCALVERSION_AUTO is not set
 >>>>>>> 99844b4... defconfig: enable unaligned capability for ARM64:arch/arm64/configs/googymax_exynos720-zeroflte_defconfig
 CONFIG_DEFAULT_HOSTNAME="(none)"
@@ -1632,10 +1642,14 @@ CONFIG_BCMDHD_FW_PATH="/system/etc/wifi/bcmdhd_sta.bin"
 CONFIG_BCMDHD_NVRAM_PATH="/system/etc/wifi/nvram_net.txt"
 CONFIG_BROADCOM_WIFI_RESERVED_MEM=y
 <<<<<<< HEAD:arch/arm64/configs/exynos7420-zeroltespr_defconfig
+<<<<<<< HEAD:arch/arm64/configs/exynos7420-zeroltespr_defconfig
 =======
 # CONFIG_BCMDHD_PREALLOC_PKTIDMAP is not set
 >>>>>>> 99844b4... defconfig: enable unaligned capability for ARM64:arch/arm64/configs/googymax_exynos720-zeroflte_defconfig
 CONFIG_WLAN_REGION_CODE=100
+=======
+CONFIG_WLAN_REGION_CODE=101
+>>>>>>> d2234da... enable HOTPLUG_THREAD_STOP:arch/arm64/configs/googymax_exynos720-zeroflte_defconfig
 CONFIG_WLAIBSS=y
 CONFIG_WL_RELMCAST=y
 # CONFIG_WL_NAN is not set
@@ -2611,9 +2625,13 @@ CONFIG_VGA_ARB_MAX_GPUS=16
 #
 # CONFIG_MALI_T6XX is not set
 <<<<<<< HEAD:arch/arm64/configs/exynos7420-zeroltespr_defconfig
+<<<<<<< HEAD:arch/arm64/configs/exynos7420-zeroltespr_defconfig
 =======
 # CONFIG_MALI_GATOR_SUPPORT is not set
 >>>>>>> 99844b4... defconfig: enable unaligned capability for ARM64:arch/arm64/configs/googymax_exynos720-zeroflte_defconfig
+=======
+# CONFIG_MALI_GATOR_SUPPORT is not set
+>>>>>>> d2234da... enable HOTPLUG_THREAD_STOP:arch/arm64/configs/googymax_exynos720-zeroflte_defconfig
 CONFIG_MALI_EXYNOS_TRACE=y
 CONFIG_MALI_EXPERT=y
 # CONFIG_MALI_DEBUG_SHADER_SPLIT_FS is not set
@@ -2630,12 +2648,17 @@ CONFIG_MALI_PLATFORM_THIRDPARTY_NAME="7420"
 CONFIG_MALI_DVFS=y
 CONFIG_MALI_T7XX=y
 <<<<<<< HEAD:arch/arm64/configs/exynos7420-zeroltespr_defconfig
+<<<<<<< HEAD:arch/arm64/configs/exynos7420-zeroltespr_defconfig
 # CONFIG_MALI_R5P0_REL is not set
 CONFIG_MALI_R7P0=y
 CONFIG_MALI_SYSTRACE_SUPPORT=y
 =======
 CONFIG_MALI_R5P0=y
 >>>>>>> 99844b4... defconfig: enable unaligned capability for ARM64:arch/arm64/configs/googymax_exynos720-zeroflte_defconfig
+=======
+CONFIG_MALI_R5P0=y
+# CONFIG_MALI_SYSTRACE_SUPPORT is not set
+>>>>>>> d2234da... enable HOTPLUG_THREAD_STOP:arch/arm64/configs/googymax_exynos720-zeroflte_defconfig
 CONFIG_MALI_RT_PM=y
 CONFIG_MALI_DEBUG_SYS=y
 CONFIG_MALI_SEC_HWCNT=y
@@ -3926,7 +3949,6 @@ CONFIG_CHARGER_MAX77833=y
 CONFIG_WIRELESS_CHARGER_INBATTERY=y
 CONFIG_WIRELESS_CHARGER_INBATTERY_CS100=y
 # CONFIG_WIRELESS_CHARGER_INBATTERY_5V_FIX is not set
-# CONFIG_WIRELESS_CHARGER_HIGH_VOLTAGE is not set
 CONFIG_WIRELESS_CHARGER_BQ51221=y
 # CONFIG_WIRELESS_CHARGER_P9027S is not set
 # CONFIG_WIRELESS_CHARGER_P9220 is not set
