@@ -105,6 +105,14 @@
 #include <asm/io.h>
 #include <asm/irq.h>
 
+<<<<<<< HEAD
+=======
+#include <linux/moduleparam.h>
+
+static int wl_divide_gps = 4;
+module_param(wl_divide_gps, int, 0644);
+
+>>>>>>> 15eadf8... SensorHub: reduce wakelock timeouts
 #define xCONFIG_SPI_BCM4773_DMA       0
 #define CONFIG_SPI_DMA_BITS_PER_WORD  32
 #define xCONFIG_SPI_NO_FULL_DUPLEX    0

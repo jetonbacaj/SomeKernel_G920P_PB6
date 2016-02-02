@@ -15,6 +15,14 @@
 
 #include "ssp_iio.h"
 
+<<<<<<< HEAD
+=======
+#include <linux/moduleparam.h>
+
+static int wl_ssp = 1;
+module_param(wl_ssp, int, 0644);
+
+>>>>>>> 15eadf8... SensorHub: reduce wakelock timeouts
 static void init_sensorlist(struct ssp_data *data)
 {
 	char name[SENSOR_MAX][SENSOR_NAME_MAX_LEN] = SENSOR_NAME;

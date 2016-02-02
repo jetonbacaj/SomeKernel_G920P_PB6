@@ -30,6 +30,14 @@
 #include <linux/regulator/consumer.h>
 #include "sx9310_reg.h"
 
+<<<<<<< HEAD
+=======
+#include <linux/moduleparam.h>
+
+static int wl_grip = 1;
+module_param(wl_grip, int, 0644);
+
+>>>>>>> 15eadf8... SensorHub: reduce wakelock timeouts
 #define VENDOR_NAME              "SEMTECH"
 #define MODEL_NAME               "SX9310"
 #define MODULE_NAME              "grip_sensor"
