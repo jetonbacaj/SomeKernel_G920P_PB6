@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+CFLAGS_dm_cpu_hotplug.o := $(KBUILD_CFLAGS) -Wno-declaration-after-statement
+CFLAGS_cpufreq_ktoonservative.o := $(KBUILD_CFLAGS) -Wno-unused-variable
+
+>>>>>>> 7f708a0... drivers/cpufreq/Makefile: fix ktoonservative compile error
 # CPUfreq core
 obj-$(CONFIG_CPU_FREQ)			+= cpufreq.o cpu_load_metric.o
 # CPUfreq stats
