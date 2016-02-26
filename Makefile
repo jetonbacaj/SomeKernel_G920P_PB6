@@ -1,7 +1,12 @@
 VERSION = 3
 PATCHLEVEL = 10
+<<<<<<< HEAD
 SUBLEVEL = 61
 EXTRAVERSION =
+=======
+SUBLEVEL = 96
+EXTRAVERSION = -Tyrannus_Kernel_V1.1
+>>>>>>> 1e57b5f... Linux 3.10.61 to Linux 3.10.96
 NAME = TOSSUG Baby Fish
 
 # *DOCUMENTATION*
