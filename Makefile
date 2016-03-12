@@ -4,6 +4,7 @@ PATCHLEVEL = 10
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 SUBLEVEL = 61
 EXTRAVERSION =
 =======
@@ -23,6 +24,9 @@ SUBLEVEL = 98
 =======
 SUBLEVEL = 99
 >>>>>>> 4d5f500... Linux 3.10.99
+=======
+SUBLEVEL = 100
+>>>>>>> 78c6827... Linux 3.10.100
 EXTRAVERSION = -Tyrannus_Kernel_V1.1
 >>>>>>> b4558f6... Linux 3.10.98
 NAME = TOSSUG Baby Fish
