@@ -6,6 +6,7 @@ PATCHLEVEL = 10
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 SUBLEVEL = 61
 EXTRAVERSION =
 =======
@@ -17,6 +18,9 @@ SUBLEVEL = 96
 EXTRAVERSION = -Tyrannus_Kernel_V1.1
 =======
 SUBLEVEL = 97
+=======
+SUBLEVEL = 103
+>>>>>>> 29c5f20... Linux 3.10.103
 EXTRAVERSION =
 >>>>>>> 3dfabc9... Linux 3.10.97
 >>>>>>> fcfcd03... Linux 3.10.97
