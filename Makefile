@@ -1,47 +1,10 @@
 VERSION = 3
 PATCHLEVEL = 10
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-SUBLEVEL = 61
-EXTRAVERSION =
-=======
-SUBLEVEL = 96
-EXTRAVERSION = -Tyrannus_Kernel_V1.1
->>>>>>> 1e57b5f... Linux 3.10.61 to Linux 3.10.96
-=======
-SUBLEVEL = 96
-EXTRAVERSION = -Tyrannus_Kernel_V1.1
-=======
-SUBLEVEL = 97
-=======
-SUBLEVEL = 103
->>>>>>> 29c5f20... Linux 3.10.103
-=======
 SUBLEVEL = 104
->>>>>>> f263fd7... Linux 3.10.104
-EXTRAVERSION =
->>>>>>> 3dfabc9... Linux 3.10.97
->>>>>>> fcfcd03... Linux 3.10.97
-=======
-SUBLEVEL = 98
-=======
-SUBLEVEL = 99
->>>>>>> 4d5f500... Linux 3.10.99
-=======
-SUBLEVEL = 100
->>>>>>> 78c6827... Linux 3.10.100
-=======
-SUBLEVEL = 101
->>>>>>> 1eca1fc... Linux 3.10.101
-EXTRAVERSION = -Tyrannus_Kernel_V1.1
->>>>>>> b4558f6... Linux 3.10.98
+EXTRAVERSION = -SomeKernel_G920P_PB6_v1.0
+
 NAME = TOSSUG Baby Fish
+
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
@@ -231,7 +194,7 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/x86_64/x86/ \
 # "make" in the configured kernel build directory always uses that.
 # Default value for CROSS_COMPILE is not to prefix executables
 # Note: Some architectures assign CROSS_COMPILE in their arch/*/Makefile
-ARCH		?= $(SUBARCH)
+ARCH		= arm64
 CROSS_COMPILE	?= $(CONFIG_CROSS_COMPILE:"%"=%)
 
 # Architecture as present in compile.h
@@ -280,7 +243,7 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
 HOSTCXXFLAGS = -O2
 
 # Decide whether to build built-in, modular, or both.
@@ -423,7 +386,23 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
 		   -fno-delete-null-pointer-checks \
-		   -fdiagnostics-show-option -Werror
+		   -fdiagnostics-show-option -Werror \
+   		   -fmodulo-sched \
+		   -fmodulo-sched-allow-regmoves \
+   		   -fivopts -funswitch-loops \
+		   -fpredictive-commoning \
+		   -fgcse-after-reload \
+   		   -fbranch-target-load-optimize \
+		   -fsingle-precision-constant \
+   		   -pipe -fno-pic -O2 \
+		   -std=gnu89 \
+		   -Wno-discarded-array-qualifiers \
+		   -Wno-logical-not-parentheses \
+		   -Wno-array-bounds -Wno-switch \
+		   -Wno-unused-variable \
+		   -march=armv8-a+crc \
+		   -mtune=cortex-a57.cortex-a53
+		   
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
 KBUILD_AFLAGS   := -D__ASSEMBLY__
@@ -623,8 +602,12 @@ all: vmlinux
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
 else
-KBUILD_CFLAGS	+= -O2
+KBUILD_CFLAGS	+= -O3
 endif
+
+# Tell gcc to never replace conditional load with a non-conditional one
+KBUILD_CFLAGS	+= $(call cc-option,--param=allow-store-data-races=0)
+
 
 include $(srctree)/arch/$(SRCARCH)/Makefile
 
@@ -725,11 +708,6 @@ ifeq ($(CONFIG_TIMA),y)
     KBUILD_CFLAGS += -DTIMA_LKM_AUTH_ENABLED -Idrivers/gud/gud-exynos7420/MobiCoreKernelApi/include/
     KBUILD_AFLAGS += -DTIMA_LKM_AUTH_ENABLED
 endif
-endif
-
-#ICCC
-ifeq ($(CONFIG_TZ_ICCC),y)
-    KBUILD_CFLAGS += -Idrivers/gud/gud-exynos7420/MobiCoreKernelApi/include/
 endif
 
 # Add user supplied CPPFLAGS, AFLAGS and CFLAGS as the last assignments
