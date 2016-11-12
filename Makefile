@@ -1,10 +1,15 @@
 VERSION = 3
 PATCHLEVEL = 10
 SUBLEVEL = 104
-EXTRAVERSION = -SomeKernel_G920P_PB6_v1.0
-
+EXTRAVERSION =
 NAME = TOSSUG Baby Fish
 
+#TOOLCHAIN_DIR = $(CURDIR)/toolchain/aarch64-7.0/bin/aarch64-
+TOOLCHAIN_DIR =/home/foo/Desktop/toolschains/aarch64-linux-android-7.0-kernel/bin/aarch64-
+
+ifdef CONFIG_WITH_CCACHE
+ccache := ccache
+endif
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
@@ -23,6 +28,7 @@ unexport LC_ALL
 LC_COLLATE=C
 LC_NUMERIC=C
 export LC_COLLATE LC_NUMERIC
+unexport GREP_OPTIONS 
 
 # We are using a recursive build, so we need to do a little thinking
 # to get the ordering right.
@@ -194,7 +200,7 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/x86_64/x86/ \
 # "make" in the configured kernel build directory always uses that.
 # Default value for CROSS_COMPILE is not to prefix executables
 # Note: Some architectures assign CROSS_COMPILE in their arch/*/Makefile
-ARCH		= arm64
+ARCH		?= $(SUBARCH)
 CROSS_COMPILE	?= $(CONFIG_CROSS_COMPILE:"%"=%)
 
 # Architecture as present in compile.h
@@ -241,29 +247,14 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 	  else if [ -x /bin/bash ]; then echo /bin/bash; \
 	  else echo sh; fi ; fi)
 
-<<<<<<< HEAD
-HOSTCC       = gcc
-HOSTCXX      = g++
-=======
+ifdef CONFIG_WITH_CCACHE
 HOSTCC       = $(CCACHE) gcc
 HOSTCXX      = $(CCACHE) g++
-ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
+else
+HOSTCC       = gcc
+HOSTCXX      = g++
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
 HOSTCXXFLAGS = -O2
-endif
-ifdef CONFIG_CC_OPTIMIZE_DEFAULT
->>>>>>> 6e193c8... Makefile: add optimization levels
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
-HOSTCXXFLAGS = -O2
-endif
-ifdef CONFIG_CC_OPTIMIZE_MORE
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 -fomit-frame-pointer -std=gnu89
-HOSTCXXFLAGS = -O3 fgcse-las
-endif
-ifdef CONFIG_CC_OPTIMIZE_FAST
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -Ofast -fomit-frame-pointer -std=gnu89
-HOSTCXXFLAGS = -Ofast
-endif
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -347,6 +338,10 @@ include $(srctree)/scripts/Kbuild.include
 
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
+ifdef CONFIG_WITH_CCACHE
+	else
+		CC		= $(CCACHE) $(CROSS_COMPILE)gcc	
+endif
 CC		= $(CROSS_COMPILE)gcc
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
@@ -400,28 +395,16 @@ LINUXINCLUDE    := \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+KBUILD_CFLAGS   := -w -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
-		   -Werror-implicit-function-declaration \
-		   -Wno-format-security \
+		   -Werror-implicit-function-declaration -fno-pic \
+		   -Wno-format-security -Wno-logical-not-parentheses \
 		   -fno-delete-null-pointer-checks \
-		   -fdiagnostics-show-option -Werror \
-   		   -fmodulo-sched \
-		   -fmodulo-sched-allow-regmoves \
-   		   -fivopts -funswitch-loops \
-		   -fpredictive-commoning \
-		   -fgcse-after-reload \
-   		   -fbranch-target-load-optimize \
-		   -fsingle-precision-constant \
-   		   -pipe -fno-pic -O2 \
-		   -std=gnu89 \
-		   -Wno-discarded-array-qualifiers \
-		   -Wno-logical-not-parentheses \
-		   -Wno-array-bounds -Wno-switch \
+		   -fno-diagnostics-show-caret -fno-pic \
 		   -Wno-unused-variable \
-		   -march=armv8-a+crc \
-		   -mtune=cortex-a57.cortex-a53
-		   
+		   -mtune=cortex-a57.cortex-a53 \
+		   -std=gnu89
+
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
 KBUILD_AFLAGS   := -D__ASSEMBLY__
@@ -620,22 +603,14 @@ all: vmlinux
 
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
-endif
-ifdef CONFIG_CC_OPTIMIZE_DEFAULT
+else
 KBUILD_CFLAGS	+= -O2
 endif
-ifdef CONFIG_CC_OPTIMIZE_MORE
-KBUILD_CFLAGS	+= -O3
-endif
-ifdef CONFIG_CC_OPTIMIZE_FAST
-KBUILD_CFLAGS	+= -Ofast
-endif
+
+include $(srctree)/arch/$(SRCARCH)/Makefile
 
 # Tell gcc to never replace conditional load with a non-conditional one
 KBUILD_CFLAGS	+= $(call cc-option,--param=allow-store-data-races=0)
-
-
-include $(srctree)/arch/$(SRCARCH)/Makefile
 
 ifdef CONFIG_READABLE_ASM
 # Disable optimizations that make assembler listings hard to read.
@@ -677,7 +652,7 @@ KBUILD_CFLAGS   += $(call cc-option, -fno-var-tracking-assignments)
 
 ifdef CONFIG_DEBUG_INFO
 KBUILD_CFLAGS	+= -g
-KBUILD_AFLAGS	+= -gdwarf-4
+KBUILD_AFLAGS	+= -gdwarf-2
 endif
 
 ifdef CONFIG_DEBUG_INFO_REDUCED
@@ -740,6 +715,11 @@ ifeq ($(CONFIG_TIMA),y)
     KBUILD_CFLAGS += -DTIMA_LKM_AUTH_ENABLED -Idrivers/gud/gud-exynos7420/MobiCoreKernelApi/include/
     KBUILD_AFLAGS += -DTIMA_LKM_AUTH_ENABLED
 endif
+endif
+
+#ICCC
+ifeq ($(CONFIG_TZ_ICCC),y)
+    KBUILD_CFLAGS += -Idrivers/gud/gud-exynos7420/MobiCoreKernelApi/include/
 endif
 
 # Add user supplied CPPFLAGS, AFLAGS and CFLAGS as the last assignments
@@ -1514,3 +1494,4 @@ FORCE:
 # Declare the contents of the .PHONY variable as phony.  We keep that
 # information in a variable so we can use it in if_changed and friends.
 .PHONY: $(PHONY)
+endif
